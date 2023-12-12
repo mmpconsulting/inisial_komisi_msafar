@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="commision_rate_view_tree" model="ir.ui.view">
+            <field name="name">commision.rate.view.tree</field>
+            <field name="model">commision.rate</field>
+            <field name="arch" type="xml">
+                <tree string="Tarif Komisi" editable="bottom">
+                    <field name="min" widget="integer" type="char" required="1"/>
+                    <field name="max" widget="integer" type="char" required="1"/>
+                    <field name="rate" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="commision_rate_action" model="ir.actions.act_window">
+            <field name="name">Tarif Komisi</field>
+            <field name="res_model">commision.rate</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem
+            id="commision_rate_menu"
+            name="Tarif Komisi"
+            action="commision_rate_action"
+            parent="account.menu_finance_configuration"
+            groups="inisial_komisi_msafar.group_komisi_admin"
+            sequence="100"/>
+    
+    </data>
+    
+
+</odoo>

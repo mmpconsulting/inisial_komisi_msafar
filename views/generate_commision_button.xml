@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record id="account_move_tree_inherit_js_class" model="ir.ui.view">
+       <field name="name">account.move.tree.inherit</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="inisial_komisi_msafar.komisi_view_tree"/>
+       <field name="arch" type="xml">
+           <xpath expr="//tree" position="attributes">
+               <attribute name="js_class">generate_komisi_button_tree</attribute>
+           </xpath>
+       </field>
+   </record>
+</odoo>

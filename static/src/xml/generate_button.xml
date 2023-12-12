@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="generate_button_komisi">
+   <t t-name="button_generate_komisi.ListView.Buttons" t-inherit="web.ListView.Buttons">
+       <xpath expr="//*[@class='btn btn-secondary fa fa-download o_list_export_xlsx']" position="before">
+            <button type="button" class="btn btn-primary" style="margin-left: 0px;" t-on-click="OnClickKomisi">
+                New Komisi
+            </button>
+       </xpath>
+   </t>
+</templates>

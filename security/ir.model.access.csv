@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_generate_komisi_wizard_user,inisial_komisi_msafar.generate.komisi.wizard,model_generate_komisi_wizard,base.group_user,1,1,1,1
+access_commision_rate_user,inisial_komisi_msafar.commision.rate,model_commision_rate,base.group_user,1,1,1,1

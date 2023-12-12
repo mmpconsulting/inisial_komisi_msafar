@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="komisi_groups">
+            <field name="name">Komisi</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <record model="res.groups" id="group_komisi_user">
+            <field name="name">User</field>
+            <field name="category_id" ref="komisi_groups"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record model="res.groups" id="group_komisi_admin">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="komisi_groups"/>
+            <field name="implied_ids" eval="[(4, ref('inisial_komisi_msafar.group_komisi_user'))]"/>
+        </record>
+    </data>
+</odoo>

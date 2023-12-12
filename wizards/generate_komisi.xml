@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="generate_komisi_wizard_view" model="ir.ui.view">
+            <field name="name">generate.komisi.wizard.view</field>
+            <field name="model">generate.komisi.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generate Komisi">
+                    <group>
+                        <field name="agen_id" required="1" options="{'no_create': True}"/>
+                        <field name="product_id" required="1" options="{'no_create': True}" domain="[('categ_id.is_kloter', '=', 'True')]"/>
+                    </group>
+                    <footer>
+                        <button name="generate_komisi"
+                            string="Generate"
+                            type="object"
+                            class="oe_highlight"
+                            groups="inisial_komisi_msafar.group_komisi_admin"
+                            />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="generate_komisi_wizard_action" model="ir.actions.act_window">
+            <field name="name">Generate Komisi</field>
+            <field name="res_model">generate.komisi.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            id="generate_komisi_menu"
+            name="Generate Komisi"
+            action="generate_komisi_wizard_action"
+            parent="account.menu_finance_payables"
+            groups="inisial_komisi_msafar.group_komisi_admin"
+            sequence="9999"
+        />
+
+    </data>
+</odoo>
