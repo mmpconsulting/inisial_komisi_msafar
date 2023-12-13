@@ -8,21 +8,29 @@ class GenerateKomisiWizard(models.TransientModel):
     _description = 'Generate Komisi'
 
     agen_id = fields.Many2one('res.users', string='Agen')
-    product_id = fields.Many2one('product.product', string='Kloter')
+    product_id = fields.Many2one('product.template', string='Kloter')
+    account_id = fields.Many2one('account.account', string='Akun')
 
     def query_invoices(self):
+        products = self.product_id.product_variant_ids
+        query_prd = ''
+        if len(products) == 1:
+            query_prd = "line.product_id = %s" % products.id
+        elif len(products) > 1:
+            query_prd = "line.product_id in %s" % str(tuple(products.ids))
+
         self._cr.execute("""
         SELECT move.id as invoice
         FROM account_move_line as line
         LEFT JOIN account_move as move on line.move_id = move.id
         WHERE 
-            line.product_id = %s and 
+            %s and 
             move.is_komisi = False and
             move.agen_id = %s and 
             move.state = 'posted' and
             (move.generated_komisi = false or move.generated_komisi is null)
         GROUP BY move.id
-        """ % (self.product_id.id, self.agen_id.id))
+        """ % (query_prd, self.agen_id.id))
         res = self._cr.dictfetchall()
         return res
     
@@ -60,7 +68,8 @@ class GenerateKomisiWizard(models.TransientModel):
             'invoice_date': date.today(),
             'date': date.today(),
             'invoice_line_ids': [(0, 0, {
-                'product_id': self.product_id.id,
+                # 'product_id': self.product_id.id,
+                'account_id': self.account_id.id,
                 'name': "Komisi %s" % (self.agen_id.name),
                 'quantity': total_komisi['pax'],
                 'price_unit': total_komisi['price'],
@@ -68,7 +77,6 @@ class GenerateKomisiWizard(models.TransientModel):
             'jamaah_ids': [(6, 0, jamaah.ids)],
         })
 
-        # all_invoices.komisi_id = created.id
         all_invoices.write({
             'generated_komisi': True,
             'komisi_id': created.id

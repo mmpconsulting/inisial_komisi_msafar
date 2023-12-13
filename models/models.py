@@ -39,11 +39,18 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     is_komisi = fields.Boolean('Komisi', default=False)
-    generated_komisi = fields.Boolean('Komisi Generated', default=False)
+    generated_komisi = fields.Boolean('Komisi Generated', default=False, compute='compute_generated_komisi',)
     agen_id = fields.Many2one('res.users', string='Agen')
     komisi_line_ids = fields.One2many('account.move', 'komisi_id', string='Komisi Line')
-    komisi_id = fields.Many2one('account.move', string='Komisi', ondelete='restrict')
+    komisi_id = fields.Many2one('account.move', string='Komisi', ondelete='set null')
     komisi_inv_count = fields.Integer('Count Invoice', compute='count_invoice_komisi')
+
+    @api.depends('komisi_id')
+    def compute_generated_komisi(self):
+        for rec in self:
+            if not rec.komisi_id:
+                rec.generated_komisi = False
+    
 
     @api.depends('komisi_line_ids')
     def count_invoice_komisi(self):
