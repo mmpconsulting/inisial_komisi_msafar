@@ -48,7 +48,7 @@ class GenerateKomisiWizard(models.TransientModel):
             raise UserError('Tidak ada Invoice / Faktur dari agen %s' % self.agen_id.name)
 
         all_invoices = self.env['account.move'].browse(invoices)
-        jamaah = all_invoices.jamaah_ids.filtered(lambda j: j.user_id.id == self.agen_id.id)
+        jamaah = all_invoices.mapped('jamaah_ids')
         total_jamaah = len(jamaah)
 
         total_komisi = self.kalkulasi_komisi(total_jamaah)
