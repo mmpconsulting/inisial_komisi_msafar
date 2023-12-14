@@ -15,7 +15,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['base', 'sale', 'account','sale_umroh'],
+    'depends': ['base', 'sale', 'account', 'sale_umroh'],
 
     'data': [
         'security/ir.model.access.csv',

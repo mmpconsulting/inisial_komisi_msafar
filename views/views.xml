@@ -24,7 +24,7 @@
             <button class="oe_stat_button" name="view_komisi" string="Komisi" type="object" icon="fa-percent" attrs="{'invisible':['|',('move_type','!=','out_invoice'),('komisi_id','=',False)]}"/>
         </xpath>
         <xpath expr="//group[@id='header_right_group']" position="inside">
-            <field name="agen_id" required="1" attrs="{'invisible':[('move_type', 'not in', ['out_invoice','in_invoice'])]}"/>
+            <field name="agen_id" required="1" attrs="{'invisible':[('move_type', 'not in', ['out_invoice','in_invoice'])],'readonly':[('state', '!=', 'draft')]}"/>
         </xpath>
       </field>
     </record>
@@ -40,7 +40,7 @@
             </page>
         </xpath> -->
         <xpath expr="//field[@name='payment_term_id']" position="after">
-            <field name="agen_id" required="1"/>
+            <field name="agen_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
         </xpath>
       </field>
     </record>

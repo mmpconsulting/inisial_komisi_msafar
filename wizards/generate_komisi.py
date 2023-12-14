@@ -25,9 +25,9 @@ class GenerateKomisiWizard(models.TransientModel):
         LEFT JOIN account_move as move on line.move_id = move.id
         WHERE 
             %s and 
-            move.is_komisi = False and
-            move.agen_id = %s and 
+            move.agen_id = %s and
             move.state = 'posted' and
+            (move.is_komisi = false or move.is_komisi is null) and
             (move.generated_komisi = false or move.generated_komisi is null)
         GROUP BY move.id
         """ % (query_prd, self.agen_id.id))
@@ -92,5 +92,3 @@ class GenerateKomisiWizard(models.TransientModel):
             'res_id': created.id,
             # 'domain': [('id', 'in', cids)],
         }
-
-    
